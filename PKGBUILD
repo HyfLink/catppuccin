@@ -1,0 +1,35 @@
+pkgname="catppuccin-meta"
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="catppuccin meta package"
+arch=("any")
+url="https://github.com/HyfLink/catppuccin"
+license=("MIT")
+depends=()
+optdepends=(
+    "catppuccin-alacritty"
+    "catppuccin-bat"
+    "catppuccin-bottom"
+    "catppuccin-btop"
+    "catppuccin-cursors-latte"
+    "catppuccin-cursors-frappe"
+    "catppuccin-cursors-macchiato"
+    "catppuccin-cursors-mocha"
+    "catppuccin-delta"
+    "catppuccin-fcitx5"
+    "catppuccin-fish"
+    "catppuccin-fuzzel"
+    "catppuccin-fzf"
+    "catppuccin-hyprland"
+    "catppuccin-hyprlock"
+    "catppuccin-imv"
+    "catppuccin-kitty"
+    "catppuccin-kvantum"
+    "catppuccin-lsd"
+    "catppuccin-mako"
+    "catppuccin-mpv"
+    "catppuccin-sddm"
+    "catppuccin-swaylock"
+    "catppuccin-thunderbird"
+    "catppuccin-yazi"
+)

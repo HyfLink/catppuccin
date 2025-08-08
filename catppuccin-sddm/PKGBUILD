@@ -1,0 +1,50 @@
+depname="sddm"
+pkgname="catppuccin-$depname"
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="catppuccin for $depname"
+arch=("any")
+url="https://github.com/catppuccin/$depname"
+license=("MIT")
+depends=("$depname")
+makedepends=("just" "catppuccin-whiskers-bin")
+backup=(
+    "usr/share/catppuccin/$depname/theme.conf"
+    "usr/share/catppuccin/$depname/wall.png"
+)
+source=("git+$url.git")
+sha256sums=('SKIP')
+
+flavors=("latte" "frappe" "macchiato" "mocha")
+accents=("rosewater" "flamingo" "pink" "mauve" "red" "maroon" "peach" "yellow" "green" "teal" "sky" "sapphire" "blue" "lavender")
+
+build() {
+    cd "$depname"
+    mv "src/theme.conf" $srcdir
+    mv "src/backgrounds/wall.png" $srcdir
+    rmdir "src/backgrounds"
+    just build
+}
+
+package() {
+    licenseDir="$pkgdir/usr/share/licenses/catppuccin/$depname"
+    install -Ddm755 $licenseDir
+    install -m644 "$depname/README.md" $licenseDir
+    install -m644 "$depname/LICENSE" $licenseDir
+
+    destDir="$pkgdir/usr/share/catppuccin/$depname"
+    install -Ddm755 $destDir
+    install -m644 "theme.conf" $destDir
+    install -m644 "wall.png" $destDir
+
+    sddmDir="$pkgdir/usr/share/$depname/themes"
+    install -Ddm755 $sddmDir
+
+    for flavor in ${flavors[@]}; do
+        for accent in ${accents[@]}; do
+            cp -r -a --no-preserve=ownership "$srcdir/$depname/themes/catppuccin-$flavor-$accent" "$sddmDir/catppuccin-$flavor-$accent"
+            cd "$sddmDir/catppuccin-$flavor-$accent"
+            ln -s "../../../catppuccin/$depname/theme.conf" "theme.conf"
+        done
+    done
+}

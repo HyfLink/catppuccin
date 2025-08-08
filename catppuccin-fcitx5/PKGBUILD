@@ -1,0 +1,31 @@
+depname="fcitx5"
+pkgname="catppuccin-$depname"
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="catppuccin for $depname"
+arch=("any")
+url="https://github.com/catppuccin/$depname"
+license=("MIT")
+depends=("$depname" "$depname-configtool" "$depname-qt" "$depname-gtk")
+optdepends=("$depname-rime" "rime-ice")
+makedepends=("just" "catppuccin-whiskers-bin")
+source=("git+$url.git")
+sha256sums=('SKIP')
+
+flavors=("latte" "frappe" "macchiato" "mocha")
+accents=("rosewater" "flamingo" "pink" "mauve" "red" "maroon" "peach" "yellow" "green" "teal" "sky" "sapphire" "blue" "lavender")
+
+build() {
+    cd "$depname"
+    just build
+}
+
+package() {
+    licenseDir="$pkgdir/usr/share/licenses/catppuccin/$depname"
+    install -Ddm755 $licenseDir
+    install -m644 "$depname/README.md" $licenseDir
+    install -m644 "$depname/LICENSE" $licenseDir
+
+    install -Ddm755 "$pkgdir/usr/share/catppuccin"
+    cp -r -a --no-preserve=ownership "$depname/src" "$pkgdir/usr/share/catppuccin/$depname"
+}

@@ -1,4 +1,4 @@
-depname="kvantum"
+depname="qbittorrent"
 pkgname="catppuccin-$depname"
 pkgver=0.1.0
 pkgrel=1
@@ -6,8 +6,8 @@ pkgdesc="catppuccin for $depname"
 arch=("any")
 url="https://github.com/catppuccin/$depname"
 license=("MIT")
-depends=("$depname" "$depname-qt5")
-makedepends=("catppuccin-whiskers-bin")
+depends=("$depname")
+makedepends=("just" "catppuccin-whiskers-bin")
 source=("git+$url.git")
 sha256sums=('SKIP')
 
@@ -15,9 +15,8 @@ flavors=("latte" "frappe" "macchiato" "mocha")
 accents=("rosewater" "flamingo" "pink" "mauve" "red" "maroon" "peach" "yellow" "green" "teal" "sky" "sapphire" "blue" "lavender")
 
 build() {
-    cd "$depname"
-    whiskers "templates/$depname.tera"
-    whiskers "templates/svg.tera"
+    cd $depname
+    just package
 }
 
 package() {
@@ -26,10 +25,10 @@ package() {
     install -m644 "$depname/README.md" $licenseDir
     install -m644 "$depname/LICENSE" $licenseDir
 
-    install -Ddm755 "$pkgdir/usr/share/Kvantum"
+    destDir="$pkgdir/usr/share/catppuccin/$depname"
+    install -Ddm755 $destDir
+
     for flavor in ${flavors[@]}; do
-        for accent in ${accents[@]}; do
-            cp -r -a --no-preserve=ownership "$depname/themes/catppuccin-$flavor-$accent" "$pkgdir/usr/share/Kvantum/"
-        done
+        install -m644 "$depname/dist/catppuccin-$flavor.qbtheme" $destDir
     done
 }

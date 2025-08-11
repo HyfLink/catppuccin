@@ -1,4 +1,4 @@
-depname="kvantum"
+depname="cosmic-desktop"
 pkgname="catppuccin-$depname"
 pkgver=0.1.0
 pkgrel=1
@@ -6,7 +6,7 @@ pkgdesc="catppuccin for $depname"
 arch=("any")
 url="https://github.com/catppuccin/$depname"
 license=("MIT")
-depends=("$depname" "$depname-qt5")
+depends=("cosmic-session")
 makedepends=("catppuccin-whiskers-bin")
 source=("git+$url.git")
 sha256sums=('SKIP')
@@ -16,8 +16,8 @@ accents=("rosewater" "flamingo" "pink" "mauve" "red" "maroon" "peach" "yellow" "
 
 build() {
     cd "$depname"
-    whiskers "templates/$depname.tera"
-    whiskers "templates/svg.tera"
+    whiskers "templates/cosmic-settings.tera"
+    whiskers "templates/cosmic-term.tera"
 }
 
 package() {
@@ -26,10 +26,19 @@ package() {
     install -m644 "$depname/README.md" $licenseDir
     install -m644 "$depname/LICENSE" $licenseDir
 
-    install -Ddm755 "$pkgdir/usr/share/Kvantum"
+    destDir="$pkgdir/usr/share/catppuccin/cosmic-settings"
+    install -Ddm755 $destDir
+
     for flavor in ${flavors[@]}; do
         for accent in ${accents[@]}; do
-            cp -r -a --no-preserve=ownership "$depname/themes/catppuccin-$flavor-$accent" "$pkgdir/usr/share/Kvantum/"
+            install -m644 "$depname/themes/cosmic-settings/catppuccin-$flavor-$accent+round.ron" $destDir
         done
+    done
+    
+    destDir="$pkgdir/usr/share/catppuccin/cosmic-term"
+    install -Ddm755 $destDir
+
+    for flavor in ${flavors[@]}; do
+        install -m644 "$depname/themes/cosmic-term/catppuccin-$flavor.ron" $destDir
     done
 }

@@ -13,6 +13,9 @@ catppuccin-bottom/src/bottom/
 catppuccin-btop/btop/
 catppuccin-btop/src/btop/
 
+catppuccin-cosmic-desktop/cosmic-desktop
+catppuccin-cosmic-desktop/src/cosmic-desktop
+
 catppuccin-delta/delta/
 catppuccin-delta/src/delta/
 
@@ -51,6 +54,12 @@ catppuccin-mako/src/mako/
 
 catppuccin-mpv/mpv/
 catppuccin-mpv/src/mpv/
+
+catppuccin-qtcreator/qtcreator/
+catppuccin-qtcreator/src/qtcreator/
+
+catppuccin-qbittorrent/qbittorrent/
+catppuccin-qbittorrent/src/qbittorrent/
 
 catppuccin-sddm/sddm/
 catppuccin-sddm/src/sddm/

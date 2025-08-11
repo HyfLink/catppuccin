@@ -11,6 +11,7 @@ optdepends=(
     "catppuccin-bat"
     "catppuccin-bottom"
     "catppuccin-btop"
+    "catppuccin-cosmic-desktop"
     "catppuccin-cursors-latte"
     "catppuccin-cursors-frappe"
     "catppuccin-cursors-macchiato"
@@ -28,8 +29,12 @@ optdepends=(
     "catppuccin-lsd"
     "catppuccin-mako"
     "catppuccin-mpv"
+    "catppuccin-qbittorrent"
+    "catppuccin-qtcreator"
     "catppuccin-sddm"
     "catppuccin-swaylock"
     "catppuccin-thunderbird"
     "catppuccin-yazi"
+    "papirus-folders-catppuccin-git"
 )
+

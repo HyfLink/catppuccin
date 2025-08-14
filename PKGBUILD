@@ -5,7 +5,6 @@ pkgdesc="catppuccin meta package"
 arch=("any")
 url="https://github.com/HyfLink/catppuccin"
 license=("MIT")
-depends=()
 optdepends=(
     "catppuccin-alacritty"
     "catppuccin-bat"
@@ -30,6 +29,7 @@ optdepends=(
     "catppuccin-mako"
     "catppuccin-mpv"
     "catppuccin-qbittorrent"
+    "catppuccin-qt5ct"
     "catppuccin-qtcreator"
     "catppuccin-sddm"
     "catppuccin-swaylock"
@@ -37,4 +37,3 @@ optdepends=(
     "catppuccin-yazi"
     "papirus-folders-catppuccin-git"
 )
-

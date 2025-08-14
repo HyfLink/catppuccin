@@ -6,7 +6,7 @@ pkgdesc="catppuccin for $depname"
 arch=("any")
 url="https://github.com/catppuccin/$depname"
 license=("MIT")
-depends=("$depname")
+optdepends=("$depname")
 source=("git+$url.git")
 sha256sums=('SKIP')
 

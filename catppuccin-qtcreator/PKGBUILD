@@ -6,7 +6,7 @@ pkgdesc="catppuccin for $depname"
 arch=("any")
 url="https://github.com/catppuccin/$depname"
 license=("MIT")
-depends=("$depname")
+optdepends=("$depname")
 source=("git+$url.git")
 sha256sums=('SKIP')
 
@@ -19,7 +19,7 @@ package() {
     install -m644 "$depname/README.md" $licenseDir
     install -m644 "$depname/LICENSE" $licenseDir
 
-    destDir="$pkgdir/usr/share/catppuccin/$depname"
+    destDir="$pkgdir/usr/share/qtcreator"
     install -Ddm755 "$destDir/themes"
     install -Ddm755 "$destDir/styles"
 

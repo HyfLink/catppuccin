@@ -6,7 +6,7 @@ pkgdesc="catppuccin for $depname"
 arch=("any")
 url="https://github.com/catppuccin/$depname"
 license=("MIT")
-depends=("cosmic-session")
+optdepends=("cosmic-session")
 makedepends=("catppuccin-whiskers-bin")
 source=("git+$url.git")
 sha256sums=('SKIP')
@@ -34,7 +34,7 @@ package() {
             install -m644 "$depname/themes/cosmic-settings/catppuccin-$flavor-$accent+round.ron" $destDir
         done
     done
-    
+
     destDir="$pkgdir/usr/share/catppuccin/cosmic-term"
     install -Ddm755 $destDir
 

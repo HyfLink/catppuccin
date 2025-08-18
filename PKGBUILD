@@ -7,18 +7,15 @@ url="https://catppuccin.com"
 license=("MIT")
 optdepends=(
     "alacritty"
-    "bat"
+    "bat" "bat-extras"
     "bottom"
     "catppuccin-cursors-latte" "catppuccin-cursors-frappe" "catppuccin-cursors-macchiato" "catppuccin-cursors-mocha"
     "delta"
     "fcitx5-configtool" "fcitx5-gtk" "fcitx5-rime" "catppuccin-fcitx5-git"
-    "fuzzel"
-    "fzf"
     "imv"
     "kitty"
     "kvantum-theme-catppuccin-git"
     "lsd"
-    "mako"
     "mpv"
     "papirus-folders-catppuccin-git"
     "qbittorrent"
@@ -26,12 +23,16 @@ optdepends=(
     "qtcreator"
     "thunderbird"
     "yazi"
+    "adobe-source-code-pro-fonts" "adobe-source-han-sans-cn-fonts" "adobe-source-han-serif-cn-fonts"
+    "ttf-lxgw-wenkai" "ttf-lxgw-wenkai-mono"
+    "wqy-zenhei" "wqy-microhei"
 )
 makedepends=("deno" "just" "catppuccin-whiskers-bin")
 source=(
     "git+https://github.com/catppuccin/alacritty"
     "git+https://github.com/catppuccin/bat"
     "git+https://github.com/catppuccin/bottom"
+    "git+https://github.com/catppuccin/cosmic-desktop"
     "git+https://github.com/catppuccin/delta"
     "git+https://github.com/catppuccin/fuzzel"
     "git+https://github.com/catppuccin/fzf"
@@ -49,6 +50,7 @@ sha256sums=(
     "SKIP" # "git+https://github.com/catppuccin/alacritty"
     "SKIP" # "git+https://github.com/catppuccin/bat"
     "SKIP" # "git+https://github.com/catppuccin/bottom"
+    "SKIP" # "git+https://github.com/catppuccin/cosmic-desktop"
     "SKIP" # "git+https://github.com/catppuccin/delta"
     "SKIP" # "git+https://github.com/catppuccin/fuzzel"
     "SKIP" # "git+https://github.com/catppuccin/fzf"
@@ -79,6 +81,10 @@ build() {
     cd "$srcdir/qbittorrent" && just package
     cd "$srcdir/thunderbird" && env -S deno run --allow-read --allow-write --allow-env build.ts
     cd "$srcdir/yazi"        && just build
+
+    cd "$srcdir/cosmic-desktop"
+    whiskers "templates/cosmic-settings.tera"
+    whiskers "templates/cosmic-term.tera"
 }
 
 package() {
@@ -96,6 +102,14 @@ package() {
     bottomDir="$destDir/bottom"
     install -dvm755 $bottomDir
     install -m644 "$srcdir/bottom/README.md" $bottomDir
+
+    cosmicSettingsDir="$destDir/cosmic-settings"
+    install -dvm755 $cosmicSettingsDir
+    install -m644 "$srcdir/cosmic-desktop/README.md" $cosmicSettingsDir
+    
+    cosmicTermDir="$destDir/cosmic-term"
+    install -dvm755 $cosmicTermDir
+    install -m644 "$srcdir/cosmic-desktop/README.md" $cosmicTermDir
 
     deltaDir="$destDir/delta"
     install -dvm755 $deltaDir
@@ -159,6 +173,7 @@ package() {
         install -m644 "$srcdir/qtcreator/styles/catppuccin-$flavor.xml" "$qtcreatorDir/styles"
         install -m644 "$srcdir/qtcreator/themes/catppuccin-$flavor.creatortheme" "$qtcreatorDir/themes"
         install -m644 "$srcdir/qtcreator/themes/catppuccin-$flavor.figmatokens" "$qtcreatorDir/themes"
+        install -m644 "$srcdir/cosmic-desktop/themes/cosmic-term/catppuccin-$flavor.ron" $cosmicTermDir
 
         for accent in ${accents[@]}; do
             install -Tm644 "$srcdir/fuzzel/themes/catppuccin-$flavor/$accent.ini" "$fuzzelDir/catppuccin-$flavor-$accent.ini"
@@ -166,6 +181,7 @@ package() {
             install -Tm644 "$srcdir/mpv/themes/$flavor/$accent.conf" "$mpvDir/catppuccin-$flavor-$accent.conf"
             install -m644 "$srcdir/thunderbird/themes/$flavor/$flavor-$accent.xpi" $thunderbirdDir
             install -m644 "$srcdir/yazi/themes/$flavor/catppuccin-$flavor-$accent.toml" $yaziDir
+            install -m644 "$srcdir/cosmic-desktop/themes/cosmic-settings/catppuccin-$flavor-$accent+round.ron" $cosmicSettingsDir
         done
     done
 }
